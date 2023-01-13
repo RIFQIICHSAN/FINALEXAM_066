@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>FINALEXAM</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <div>FINALEXAM</div>
+    <script>
+            //method Input Data (POST) 
+            const url = "http://localhost:8080/POST";
+            function post() {
+                let editId = document.getElementById("Id").value;
+                let nik = document.getElementById("nik").value;
+                let name = document.getElementById("nama").value;
+                let tgllahir = document.getElementById("tgl_lahir").value;
+                let dataText = {"Id": editId, "nik": nik, "nama": name, "tgl_lahir": tgllahir};
+                let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+
+            //method Edit Data(PUT)
+            function put() {
+                const urlp = "http://localhost:8080/PUT";
+                let editId = document.getElementById("Id").value;
+                let nik = document.getElementById("nik").value;
+                let name = document.getElementById("nama").value;
+                let tgllahir = document.getElementById("tgl_lahir").value;
+                let dataText = {"Id": editId, "nik": nik, "nama": name, "tgl_lahir": tgllahir};
+                let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                    url: urlp,
+                    method: 'PUT',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+
+            //method Menampilkan Data (GET)
+            function get() {
+                const urlg = "http://localhost:8080/GET";
+                $.ajax({
+                    url: urlg,
+                    method: 'GET',
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                });
+            }
+
+            //method Menghapus Data (DELETE)
+            function delId() {
+                const urlp = "http://localhost:8080/DELETE";
+                let editId = document.getElementById("Id).value;
+                let dataText = {"Id": editId};
+                let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                    url: urlp,
+                    method: 'DELETE',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+            }
+
+            //membuat Kolom Input dan function Button
+        </script>
+        <label>ID       : </Label><input type="text" id="Id" name="id" > <br>
+        <label>NIK     : </Label><input type="text" id="nik"name="nik"> <br>
+        <label>Nama      : </Label><input type="text" id="nama" name="nama"> <br>
+        <label>Tanggal Lahir      : </Label><input type="date" id="tgl_lahir" name="tl"> <br>
+        <label>Upload Photo  : </Label><input type="file" id="photo" name="photo">
+        <label>Timestamp  : </Label><input type="timestamp" id="timestamp" name="ts">
+        <hr>
+
+        <button onclick ="get()">Tampilkan Data</button> |
+        <button onclick ="post()">Tambah Data</button> |
+        <button onclick ="put()">Edit Data</button> |
+        <button onclick ="delId()">Hapus Data</button>
+        <hr>
+        <div id="viewer"></div>
+    </body>
+</html>
